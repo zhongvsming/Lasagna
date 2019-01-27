@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MyToolBar">
+        <attr name="leftButtonName" format="string" />
+        <attr name="leftButtonTextColor" format="reference" />
+        <attr name="leftButtonBackground" format="reference" />
+        <attr name="leftButton" >
+            <flag name="Gone" value="0" />
+        </attr>
+
+        <attr name="rightButtonName" format="string" />
+        <attr name="rightButtonTextColor" format="reference" />
+        <attr name="rightButtonBackground" format="reference" />
+        <attr name="rightButton">
+            <flag name="Gone" value="0" />
+        </attr>
+
+        <attr name="middleTextName" format="string" />
+        <attr name="middleTextColor" format="reference" />
+        <attr name="middleTextSize" format="dimension" />
+
+    </declare-styleable>
+</resources>

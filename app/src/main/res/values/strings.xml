@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Lasagna</string>
+    <string name="首页">首页</string>
+    <string name="发现">发现</string>
+    <string name="消息">消息</string>
+    <string name="我的">我的</string>
+    <string name="关注">关注</string>
+</resources>

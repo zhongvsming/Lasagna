@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#5f75e6</color>
+    <color name="colorPrimaryDark">#5f75e6</color>
+    <color name="colorAccent">#e7d286</color>
+    <color name="colorAccent1">#b3dc94</color>
+    <color name="colorAccent2">#ffffff</color>
+
+    <color name="normalOpaque">#559b9797</color>
+    <color name="deepBlue">#1917a7</color>
+    <color name="black">#000000</color>
+    <color name="opaque">#00000000</color>
+
+    <!-- searchHeadView-白天 -->
+    <color name="searchHeadView_toolbar_bg">#E3E4E6</color><!--发现页的toolbar的收缩栏-->
+    <color name="searchHeadView_inner_bg">#FFFFFF</color><!--微博的普通背景颜色-->
+    <color name="discover_fragment_searchHeadView_inner_bg">#E3E4E6</color>
+
+</resources>

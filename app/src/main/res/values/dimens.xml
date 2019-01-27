@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="ToolBarHeight">45dp</dimen>
+    <dimen name="home_weiboitem_marginleftright">8dp</dimen>
+</resources>
