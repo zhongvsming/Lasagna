@@ -23,7 +23,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             style="@style/FootBarStyle"
-            android:drawableTop="@drawable/tabbar_home"
+            android:drawableTop="@drawable/radio_home_selector"
             android:text="@string/首页"
             android:checked="true"/>
         <RadioButton
@@ -32,15 +32,23 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             style="@style/FootBarStyle"
-            android:drawableTop="@drawable/tabbar_discover"
+            android:drawableTop="@drawable/radio_discover_selector"
             android:text="@string/发现"/>
+        <ImageView
+            android:id="@+id/radio_button_main"
+            android:layout_width="45dp"
+            android:layout_height="@dimen/dp_40"
+            android:layout_gravity="center"
+            android:scaleType="center"
+            android:src="@drawable/tabbar_compose_icon_add"
+            android:background="@drawable/radio_main_bg"/>
         <RadioButton
             android:id="@+id/radio_button_message"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             style="@style/FootBarStyle"
-            android:drawableTop="@drawable/tabbar_message_center"
+            android:drawableTop="@drawable/radio_message_selector"
             android:text="@string/消息"/>
         <RadioButton
             android:id="@+id/radio_button_mine"
@@ -48,7 +56,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             style="@style/FootBarStyle"
-            android:drawableTop="@drawable/tabbar_profile"
+            android:drawableTop="@drawable/radio_mine_selector"
             android:text="@string/我的"/>
 
     </RadioGroup>

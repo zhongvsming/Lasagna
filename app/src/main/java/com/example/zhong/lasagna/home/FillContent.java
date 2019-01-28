@@ -18,6 +18,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.zhong.lasagna.R;
 import com.example.zhong.lasagna.common.GlideApp;
 import com.example.zhong.lasagna.common.MyApplication;
+import com.example.zhong.lasagna.util.DateUtils;
+import com.example.zhong.lasagna.util.TimeUtils;
 import com.lzy.ninegrid.ImageInfo;
 import com.lzy.ninegrid.NineGridView;
 import com.lzy.ninegrid.preview.NineGridViewClickAdapter;
@@ -25,6 +27,7 @@ import com.lzy.ninegrid.preview.NineGridViewClickAdapter;
 import org.w3c.dom.Comment;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class FillContent {
@@ -46,7 +49,9 @@ public class FillContent {
     }
 
     private static void setWeiBoTime(BaseViewHolder holder,HomeJB.StatusesBean item){
-        holder.setText(R.id.tv_time, item.getCreated_at());
+        Date data = DateUtils.parseDate(item.getCreated_at(), DateUtils.WeiBo_ITEM_DATE_FORMAT);
+        TimeUtils timeUtils = TimeUtils.instance(MyApplication.getGlobalContext());
+        holder.setText(R.id.tv_time, timeUtils.buildTimeString(data.getTime()) + " ");
     }
 
     private static void setHeadImg(BaseViewHolder holder,HomeJB.StatusesBean item){
@@ -75,9 +80,16 @@ public class FillContent {
      */
     public static void fillWeiBoContent(BaseViewHolder holder,HomeJB.StatusesBean item,int type) {
         if(type==HomeJB.StatusesBean.ORIGINAL)
-            holder.setText(R.id.tv_content, item.getText());
+            holder.setText(R.id.tv_content, weiBoContentFillter(item.getText()));
         if(type==HomeJB.StatusesBean.RETWEET)
-            holder.setText(R.id.retweet_content, item.getText());
+            holder.setText(R.id.retweet_content, weiBoContentFillter(item.getText()));
+    }
+    private static String weiBoContentFillter(String text){
+        if (text.contains("全文:")){
+            String weiBoContent = text.substring(0, text.lastIndexOf("全文:"));
+            return weiBoContent;
+        }
+        return text;
     }
 
     /**
