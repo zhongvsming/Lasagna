@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.example.zhong.lasagna.common.MyToolBar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ToolBarHeight"
+        app:middleTextName="基本资料"
+        app:leftButtonName="返回">
+
+    </com.example.zhong.lasagna.common.MyToolBar>
+
+</LinearLayout>

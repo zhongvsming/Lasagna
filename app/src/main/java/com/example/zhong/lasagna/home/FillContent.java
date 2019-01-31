@@ -85,8 +85,10 @@ public class FillContent {
             holder.setText(R.id.retweet_content, weiBoContentFillter(item.getText()));
     }
     private static String weiBoContentFillter(String text){
-        if (text.contains("全文:")){
-            String weiBoContent = text.substring(0, text.lastIndexOf("全文:"));
+        if (text.contains("全文：")){
+            String weiBoContent = text.substring(0, text.lastIndexOf("全文：")+2);
+//            Log.e("hello", "on execute");
+//            Log.e("hello", "全文： index="+text.lastIndexOf("全文："));
             return weiBoContent;
         }
         return text;
@@ -106,12 +108,12 @@ public class FillContent {
                 for (Object o : item.getPic_urls()) {
                     ImageInfo info = new ImageInfo();
                     String picUrl = ((HomeJB.StatusesBean.PicUrlsBeanX) o).getThumbnail_pic();
-                    Log.e("hello", " 小图片地址="+picUrl);
+//                    Log.e("hello", " 小图片地址="+picUrl);
                     info.setThumbnailUrl(picUrl);
                     int lastIndexOf1 = picUrl.lastIndexOf("/");
                     String substring = picUrl.substring(lastIndexOf1 + 1);
                     info.setBigImageUrl(bmiddle_pic_add+substring);
-                    Log.e("hello", " 大图片地址="+bmiddle_pic_add+substring);
+//                    Log.e("hello", " 大图片地址="+bmiddle_pic_add+substring);
                     imageInfo.add(info);
                 }
 //                holder.setAdapter(R.id.recycler_image, (Adapter) new NineGridViewClickAdapter(MyApplication.getGlobalContext(), imageInfo));
@@ -146,30 +148,6 @@ public class FillContent {
             }
         }
     }
-//    private static List<ImageInfo> handleImage(HomeJB.StatusesBean item,int type){
-//        String bmiddle_pic;
-//        if (type==HomeJB.StatusesBean.ORIGINAL)
-//        {
-//            bmiddle_pic = item.getBmiddle_pic();
-//        }else {
-//            bmiddle_pic = item.getRetweeted_status().getBmiddle_pic();
-//        }
-//        int lastIndexOf = bmiddle_pic.lastIndexOf("/");
-//        String bmiddle_pic_add = bmiddle_pic.substring(0, lastIndexOf);
-//        ArrayList<ImageInfo> imageInfo = new ArrayList<>();
-//        for (Object o : item.getPic_urls()) {
-//            ImageInfo info = new ImageInfo();
-//            String picUrl = ((HomeJB.StatusesBean.PicUrl) o).getPic_url();
-//            Log.e("hello", " 小图片地址="+picUrl);
-//            info.setThumbnailUrl(picUrl);
-//            int lastIndexOf1 = picUrl.lastIndexOf("/");
-//            String substring = picUrl.substring(lastIndexOf1 + 1);
-//            info.setBigImageUrl(bmiddle_pic_add+substring);
-//            Log.e("hello", " 大图片地址="+bmiddle_pic_add+substring);
-//            imageInfo.add(info);
-//        }
-//        return imageInfo;
-//    }
 
     /**
      * 填充转发微博文字内容
@@ -187,5 +165,19 @@ public class FillContent {
         }
     }
 
+    /**
+     * 给控件添加监听器
+     */
+    public static void addListener(BaseViewHolder holder,int type) {
+        holder.addOnClickListener(R.id.im_head)
+                .addOnClickListener(R.id.tv_name)
+                .addOnClickListener(R.id.bt_more)
+                .addOnClickListener(R.id.ll_forward)
+                .addOnClickListener(R.id.ll_comment)
+                .addOnClickListener(R.id.ll_like);
+        if (type == HomeJB.StatusesBean.RETWEET) {
+            holder.addOnClickListener(R.id.retweetStatus_layout);
+        }
+    }
 
 }

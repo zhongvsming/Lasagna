@@ -1,13 +1,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/titlebar_layout"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    >
+    android:layout_height="55dp"
+    android:layout_marginTop="5dp">
 
         <ImageView
             android:id="@+id/im_head"
-            android:layout_width="40dp"
-            android:layout_height="@dimen/dp_40"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_margin="5dp"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"

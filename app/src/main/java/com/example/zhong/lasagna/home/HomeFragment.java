@@ -1,10 +1,13 @@
 package com.example.zhong.lasagna.home;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -41,6 +44,9 @@ public class HomeFragment extends Fragment {
     private String url = "https://api.weibo.com/2/statuses/home_timeline.json";
     private int mCurrentPage=1;
     private HomeRecyclerAdapter adapter;
+
+    public static final String USER_ID="USER_ID";
+    public static final String WEIBO_ID="WEIBO_ID";
 
     @Nullable
     @Override
@@ -79,12 +85,14 @@ public class HomeFragment extends Fragment {
                     adapter.setEmptyView(R.layout.empty_default, recycler);
                     adapter.setOnLoadMoreListener(() -> startLoadMore(), recycler);
                     adapter.disableLoadMoreIfNotFullPage();
+                    adapter.setListener();
                     recycler.setAdapter(adapter);
-
                 });
             }
         });
     }
+
+
 
     private void startLoadMore() {
         String parameter="&page="+(++mCurrentPage);
@@ -116,7 +124,7 @@ public class HomeFragment extends Fragment {
 
     public class HomeRecyclerAdapter extends BaseMultiItemQuickAdapter<HomeJB.StatusesBean, BaseViewHolder> {
 
-        public HomeRecyclerAdapter(List data) {
+        HomeRecyclerAdapter(List data) {
             super(data);
             addItemType(HomeJB.StatusesBean.ORIGINAL, R.layout.home_recycler_original_adapter_item);
             addItemType(HomeJB.StatusesBean.RETWEET, R.layout.mainfragment_weiboitem_retweet_pictext);
@@ -130,6 +138,7 @@ public class HomeFragment extends Fragment {
                     FillContent.fillButtonBar(holder, item);
                     FillContent.fillWeiBoContent(holder, item, HomeJB.StatusesBean.ORIGINAL);
                     FillContent.fillWeiBoImgList(holder, item, HomeJB.StatusesBean.ORIGINAL);
+                    FillContent.addListener(holder,HomeJB.StatusesBean.ORIGINAL);
                     break;
 
                 case HomeJB.StatusesBean.RETWEET:
@@ -140,7 +149,72 @@ public class HomeFragment extends Fragment {
                     FillContent.fillWeiBoImgList(holder, item, HomeJB.StatusesBean.RETWEET);
                     break;
             }
+        }
 
+        void setListener(){
+            this.setOnItemClickListener((adapter, view, position) -> {
+                Log.d("hello", "onItemClick: ");
+                Object item = adapter.getItem(position);
+                if(item instanceof HomeJB.StatusesBean){
+                    Intent intent = new Intent(getContext(), OriginDetailActivity.class);
+                    intent.putExtra(WEIBO_ID, String.valueOf(((HomeJB.StatusesBean) item).getId()));
+                    intent.putExtra(USER_ID, String.valueOf(((HomeJB.StatusesBean) item).getUser().getId()));
+                    startActivity(intent);
+                }
+            });
+            this.setOnItemChildClickListener((adapter, view, position) -> {
+                Log.d("hello", "onItemChildClick: ");
+                Object item = adapter.getItem(position);
+                switch (view.getId())
+                {
+                    case R.id.im_head:
+                        if(item instanceof HomeJB.StatusesBean){
+                            Intent intent = new Intent(getContext(), ProfileSwipeActivity.class);
+                            intent.putExtra(USER_ID, ((HomeJB.StatusesBean) item).getUser().getId());
+                            startActivity(intent);
+                        }
+                        break;
+                    case R.id.tv_name:
+                        if(item instanceof HomeJB.StatusesBean){
+                            Intent intent = new Intent(getContext(), ProfileSwipeActivity.class);
+                            intent.putExtra(USER_ID, ((HomeJB.StatusesBean) item).getUser().getId());
+                            startActivity(intent);
+                        }
+                        break;
+                    case R.id.bt_more:
+                        showListDialog();
+                        break;
+                    case R.id.ll_forward:
+                        Toast.makeText(getContext(),"暂不能转发", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.ll_comment:
+                        if(item instanceof HomeJB.StatusesBean){
+                            Intent intent = new Intent(getContext(), OriginDetailActivity.class);
+                            intent.putExtra(WEIBO_ID, ((HomeJB.StatusesBean) item).getId());
+                            intent.putExtra(USER_ID, ((HomeJB.StatusesBean) item).getUser().getId());
+                            startActivity(intent);
+                        }
+                        break;
+                    case R.id.ll_like:
+                        break;
+                    case R.id.retweetStatus_layout:
+                        break;
+                }
+            });
+        }
+
+        private void showListDialog() {
+            final String[] items = { "收藏","用此卡片背景","帮上头条","取消关注" ,"屏蔽","投诉"};
+//            AlertDialog listDialog = new AlertDialog.Builder(MyApplication.getGlobalContext())
+//                    .setTitle("")
+//                    .setItems(items, (dialogInterface, i) -> {
+//                    }).create();
+//            listDialog.show();
+            android.app.AlertDialog listDialog = new android.app.AlertDialog.Builder(getActivity())
+                    .setItems(items, (dialogInterface, i) -> {
+
+                    }).create();
+            listDialog.show();
         }
     }
 

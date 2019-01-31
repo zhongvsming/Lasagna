@@ -2,4 +2,6 @@
 <resources>
     <dimen name="ToolBarHeight">45dp</dimen>
     <dimen name="home_weiboitem_marginleftright">8dp</dimen>
+    <dimen name="home_original_weiboitem_font">15sp</dimen>
+    <dimen name="home_original_weiboitem_linespace">3dp</dimen>
 </resources>

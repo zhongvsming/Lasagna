@@ -12,6 +12,7 @@
             app:leftButton="Gone"
             app:rightButton="Gone"
             app:middleTextName="@string/关注"
+            app:middleTextColor="@color/colorAccent"
             app:layout_scrollFlags="scroll|enterAlways|snap">
         </com.example.zhong.lasagna.common.MyToolBar>
     </android.support.design.widget.AppBarLayout>

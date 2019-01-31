@@ -55,6 +55,10 @@ public class MyToolBar extends LinearLayout {
         typedArray.recycle();
     }
 
+    public void setMiddleText(String text){
+        textView.setText(text);
+    }
+
     public void setLeftButtonClickListener(OnClickListener listener){
         btLeft.setOnClickListener(listener);
     }

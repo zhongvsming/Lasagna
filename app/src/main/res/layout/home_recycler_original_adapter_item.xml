@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/im_head"
-        android:textSize="15sp"
+        android:textSize="@dimen/home_original_weiboitem_font"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:textColor="@color/black"
@@ -31,6 +31,8 @@
         android:id="@+id/nine_grid_view_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         app:ngv_mode="grid">
     </com.lzy.ninegrid.NineGridView>
 
