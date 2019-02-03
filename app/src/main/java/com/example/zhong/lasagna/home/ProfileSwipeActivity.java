@@ -69,7 +69,7 @@ public class ProfileSwipeActivity extends AppCompatActivity {
     }
 
     private void sentHttp() {
-        String userId = getIntent().getStringExtra(HomeFragment.USER_ID);
+        String userId = getIntent().getStringExtra(HomeRecyclerAdapter.USER_ID);
         Log.e("hello", "urlUser=" + urlUser + MyApplication.getAccessToken() + "&uid=" + userId);
         HttpUtil.sendOkHttp(urlUser + MyApplication.getAccessToken() + "&uid=" + userId, new Callback() {
             @Override

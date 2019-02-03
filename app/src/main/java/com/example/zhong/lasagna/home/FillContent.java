@@ -103,7 +103,7 @@ public class FillContent {
 //                List<ImageInfo> imageInfo = handleImage(item,HomeJB.StatusesBean.ORIGINAL);
                 String bmiddle_pic = item.getBmiddle_pic();
                 int lastIndexOf = bmiddle_pic.lastIndexOf("/");
-                String bmiddle_pic_add = bmiddle_pic.substring(0, lastIndexOf+2);
+                String bmiddle_pic_add = bmiddle_pic.substring(0, lastIndexOf+1);
                 ArrayList<ImageInfo> imageInfo = new ArrayList<>();
                 for (Object o : item.getPic_urls()) {
                     ImageInfo info = new ImageInfo();
@@ -128,7 +128,7 @@ public class FillContent {
 //                List<ImageInfo> imageInfo = handleImage(item,HomeJB.StatusesBean.RETWEET);
                 String bmiddle_pic = item.getRetweeted_status().getBmiddle_pic();
                 int lastIndexOf = bmiddle_pic.lastIndexOf("/");
-                String bmiddle_pic_add = bmiddle_pic.substring(0, lastIndexOf);
+                String bmiddle_pic_add = bmiddle_pic.substring(0, lastIndexOf+1);
                 ArrayList<ImageInfo> imageInfo = new ArrayList<>();
                 for (Object o : item.getRetweeted_status().getPic_urls()) {
                     ImageInfo info = new ImageInfo();

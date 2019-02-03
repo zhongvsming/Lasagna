@@ -18,6 +18,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:textColor="@color/black"
+        android:lineSpacingExtra="3dp"
         android:text="确实像是笔记本电池，两个凸起是防滑垫脚？//@喝七喜的LBJ: 一个笔记本电脑电池都能把人吓成这样~ //@张晨初艺术空间: [吃惊] //@六安自媒体: 求证 //@郭晏平: 首都机场？[吃惊]"/>
 
     <!--<android.support.v7.widget.RecyclerView-->

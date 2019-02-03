@@ -25,5 +25,7 @@
         <activity android:name=".home.ProfileBaseInfomation" />
         <activity android:name=".home.ProfileSwipeActivity" />
         <activity android:name=".home.OriginDetailActivity" />
+        <activity android:name=".discover.HotWeiBoSwipeActivity" />
+        <activity android:name=".message.MentionSwipeActivity" />
     </application>
 </manifest>

@@ -1,16 +1,25 @@
 package com.example.zhong.lasagna.home;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.JsPromptResult;
+import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.example.zhong.lasagna.MainActivity;
 import com.example.zhong.lasagna.R;
 import com.example.zhong.lasagna.common.MyApplication;
 
@@ -33,8 +42,8 @@ public class OriginDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.origin_detail_activity);
         ButterKnife.bind(this);
-        weiboId = getIntent().getStringExtra(HomeFragment.WEIBO_ID);
-        userId = getIntent().getStringExtra(HomeFragment.USER_ID);
+        weiboId = getIntent().getStringExtra(HomeRecyclerAdapter.WEIBO_ID);
+        userId = getIntent().getStringExtra(HomeRecyclerAdapter.USER_ID);
         initWebView();
 //        sendHttp();
     }
@@ -42,6 +51,7 @@ public class OriginDetailActivity extends AppCompatActivity {
     private void initWebView() {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true); // 设置允许JS弹窗
         webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
         webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
         webSettings.setSupportZoom(true); //支持缩放，默认为true。是下面那个的前提。
@@ -56,6 +66,9 @@ public class OriginDetailActivity extends AppCompatActivity {
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
         webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
+
+        Log.e("hello", "url="+urlStatusesGo + MyApplication.getAccessToken() + "&uid=" + userId + "&id=" + weiboId);
+        webView.loadUrl(urlStatusesGo + MyApplication.getAccessToken() + "&uid=" + userId + "&id=" + weiboId);
 
         webView.setWebViewClient(new WebViewClient() {
             //覆盖shouldOverrideUrlLoading 方法
@@ -85,8 +98,47 @@ public class OriginDetailActivity extends AppCompatActivity {
             }
         });
 
-        Log.e("hello", "url="+urlStatusesGo + MyApplication.getAccessToken() + "&uid=" + userId + "&id=" + weiboId);
-        webView.loadUrl(urlStatusesGo + MyApplication.getAccessToken() + "&uid=" + userId + "&id=" + weiboId);
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
+//                new AlertDialog.Builder(OriginDetailActivity.this)
+//                        .setTitle("Alert")
+//                        .setMessage(message)
+//                        .setPositiveButton("OK", (dialog, which) -> result.confirm())
+//                        .setNegativeButton("Cancel", (dialogInterface, i) -> result.cancel())
+////                        .setCancelable(false)
+//                        .show();
+//                return true;
+                Toast.makeText(OriginDetailActivity.this, "Alert:\n" + message, Toast.LENGTH_LONG).show();
+                return true;
+            }
+            @Override
+            public boolean onJsConfirm(WebView view, String url, String message, final JsResult result) {
+                new AlertDialog.Builder(OriginDetailActivity.this)
+                        .setTitle("Confirm")
+                        .setMessage(message)
+                        .setPositiveButton("OK", (dialog, which) -> result.confirm())
+                        .setNegativeButton("Cancel", (dialog, which) -> result.cancel())
+                        .setCancelable(false)
+                        .show();
+                       // 返回布尔值：判断点击时确认还是取消
+                      // true表示点击了确认；false表示点击了取消；
+                return true;
+            }
+            @Override
+            public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, final JsPromptResult result) {
+                final EditText et = new EditText(OriginDetailActivity.this);
+                et.setText(defaultValue);
+                new AlertDialog.Builder(OriginDetailActivity.this)
+                        .setTitle(message)
+                        .setView(et)
+                        .setPositiveButton("OK", (dialog, which) -> result.confirm(et.getText().toString()))
+                        .setNegativeButton("Cancel", (dialog, which) -> result.cancel())
+                        .setCancelable(false)
+                        .show();
+                return true;
+            }
+        });
     }
 
     @Override
@@ -102,10 +154,24 @@ public class OriginDetailActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        if (webView != null) {
+            webView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
+            webView.clearHistory();
+
+            ((ViewGroup) webView.getParent()).removeView(webView);
+            webView.destroy();
+            webView = null;
+        }
+        super.onDestroy();
+    }
+
+    @Override
     public void onBackPressed() {
 //        super.onBackPressed();
         if (webView.canGoBack()) {
             webView.goBack();
         }
+        finish();
     }
 }
