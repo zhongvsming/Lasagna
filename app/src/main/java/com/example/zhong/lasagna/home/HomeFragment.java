@@ -72,14 +72,17 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
                 Log.e("hello", "sendOkHttpSuccess....");
                 HomeJB homeJB = HttpUtil.HandleHttpResponse(response.body().string(), HomeJB.class);
-                adapter = new HomeRecyclerAdapter(homeJB.getStatuses(),getContext());
-                getActivity().runOnUiThread(() -> {
-                    adapter.setEmptyView(R.layout.empty_default, recycler);
-                    adapter.setOnLoadMoreListener(() -> startLoadMore(), recycler);
-                    adapter.disableLoadMoreIfNotFullPage();
-                    adapter.setListener();
-                    recycler.setAdapter(adapter);
-                });
+                if (homeJB!=null) {
+                    adapter = new HomeRecyclerAdapter(homeJB.getStatuses(),getContext());
+                    getActivity().runOnUiThread(() -> {
+                        adapter.setEmptyView(R.layout.empty_default, recycler);
+                        adapter.setOnLoadMoreListener(() -> startLoadMore(), recycler);
+                        adapter.disableLoadMoreIfNotFullPage();
+                        adapter.setListener();
+                        recycler.setAdapter(adapter);
+                    });
+                }
+
             }
         });
     }

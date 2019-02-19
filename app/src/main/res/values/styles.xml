@@ -17,5 +17,12 @@
         <item name="android:paddingTop">-5dp</item>
     </style>
 
+    <!--no statues bar-->
+    <style name="AppTheme.NoBar">
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+
 
 </resources>

@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="所有微博"
-            android:textColor="@color/black"
+            android:textColor="@color/colorAccent"
             android:textSize="20sp" />
 
         <ImageView
@@ -53,7 +53,7 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="8dp"
         android:text="设置"
-        android:textColor="@color/black"
+        android:textColor="@color/colorAccent"
         android:textSize="18sp" />
 
 </RelativeLayout>

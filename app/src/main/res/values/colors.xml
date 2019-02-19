@@ -16,4 +16,7 @@
     <color name="searchHeadView_inner_bg">#FFFFFF</color><!--微博的普通背景颜色-->
     <color name="discover_fragment_searchHeadView_inner_bg">#E3E4E6</color>
 
+    <color name="retweet_nor_bg">#f7f7f7</color><!--微博的普通背景颜色-->
+    <color name="retweet_highlight_bg">#e2e1e1</color><!--微博的按压状态下的背景颜色-->
+
 </resources>
